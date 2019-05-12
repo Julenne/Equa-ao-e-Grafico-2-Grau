@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Segundo Grau</title>
+        <style>
+            body{
+                background-color: rgb(49, 201, 201);
+                text-align: center;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            input{
+                background-color: aquamarine;
+                border-radius: 4px;
+                box-shadow: 2px 2px 2px rgb(32, 31, 32);
+                border: 2px solid;
+                width: 70px;
+                height: 27px;
+            }
+            button{
+                background-color: aquamarine;
+                border-radius: 4px;
+                box-shadow: 2px 2px 2px rgb(32, 31, 32);
+                border: 2px;
+                width: 70px;
+                height: 27px;
+            }
+        
+        </style>      
+    </head>
+    <body>
+        <h1>Estudo da equação de segundo grau</h1>
+        <h2 >
+            <input type="number" id="a"> x² +     
+            <input type="number" id="b"> x +     
+            <input type="number" id="c"> = 0
+        
+            <button onclick="calcular()">Calcular</button>
+
+            <p>
+                <span id="resultado"></span>
+            </p>    
+            <canvas width="500" height="500" id="canvas"></canvas>
+        
+        </h2>
+        
+        <script type="text/javascript">
+            function calcular(){
+                let a = parseInt(document.getElementById("a").value,10);
+                let b = parseInt(document.getElementById("b").value,10);
+                let c = parseInt(document.getElementById("c").value,10);
+    
+                let delta = (Math.pow(b,2))-4*a*c;
+                
+                if(delta<0){
+                    document.getElementById("resultado").innerHTML= "Não existe raíz real.";
+
+                }else if(delta==0){
+                    let x1 = -b/(2*a);
+                    document.getElementById("resultado").innerHTML = "Uma raíz real= "+String(x1);
+
+                }else{
+                    let r1 = ((-b)+(Math.pow(delta,0.5)))/(2*a);
+                    let r2 = ((-b)-(Math.pow(delta,0.5)))/(2*a);  
+                    document.getElementById("resultado").innerHTML = "As raízes são: x1= "+String(r1)+" e x2= "+String(r2);
+                }
+                main();
+            }
+            //-------------------------------CANVAS--------------------------------
+            function f(x) {
+	            let a = parseFloat(document.getElementById("a").value);
+	            let b = parseFloat(document.getElementById("b").value);
+	            let c = parseFloat(document.getElementById("c").value);
+	            var y = ((a * (x ** 2)) + (b * x) + c);
+	            return yt(y);
+            }
+
+            function yt(y) {
+	            return -25 * y;
+            }
+
+            function xt(x) {
+	            return 25 * x;
+            }   
+
+            function main() {
+	            var canvas, ctx, w, h;
+	            w = 500;
+            	h = 500;
+	            canvas = document.getElementById("canvas");
+            	ctx = canvas.getContext("2d");
+	            var x0 = -10;
+	            var xf = 10;
+	            var x = x0;
+	            var dx = 0.1;
+	            ctx.save();
+	            ctx.translate(250, 250);
+	            ctx.beginPath();
+	            ctx.moveTo(xt(-10), yt(0));
+	            ctx.lineWidth = 3;
+	            ctx.lineTo(xt(10), yt(0));
+	            ctx.moveTo(xt(0), yt(-100));
+	            ctx.lineTo(xt(0), yt(100));
+	            ctx.stroke();
+	            ctx.beginPath();
+	            ctx.moveTo(xt(x0), f(x0));
+	            x += dx;
+	            while (x < xf) {
+		            ctx.lineTo(xt(x), f(x))
+		            x += dx;
+	            }
+	            ctx.stroke();
+	            ctx.restore();
+            }
+            function clearPainel() {
+	            canvas = document.getElementById("canvas1");
+                ctx = canvas.getContext("2d");
+	            ctx.clearRect(0, 0, canvas.width, canvas.height);
+	            console.log(ctx);
+            }
+        </script>
+    </body>
+    <!--
+      Observações:
+      whidth: largura
+      height: altura
+    -->
+</html>
